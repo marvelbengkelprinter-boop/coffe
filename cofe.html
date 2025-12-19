@@ -1,0 +1,970 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Coffee Landing</title>
+
+  <!-- Google Font (mirip gaya modern/clean) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg: #515e5925;            /* pink background halaman */
+      --panel: #0c0c0f;         /* panel hitam */
+      --panel-2: #121218;
+      --text: #ffffff;
+      --muted: rgba(255,255,255,.72);
+      --muted2: rgba(0,0,0,.55);
+      --accent: #ff4d2e;        /* tombol merah */
+      --accent2:#ff6b52;
+      --card:#ffffff;
+      --shadow: 0 18px 50px rgba(0,0,0,.18);
+      --radius: 26px;
+      --radius2: 16px;
+      --max: 1120px;
+    }
+
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family:Poppins, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
+      color:#111;
+    }
+
+    /* Outer wrapper seperti “kartu besar” */
+    .shell{
+      max-width: calc(var(--max) + 80px);
+      margin: 32px auto;
+      padding: 0 18px;
+    }
+
+    .frame{
+      border-radius: 34px;
+      background:#fff;
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+
+    /* ===== HERO (panel hitam + navbar di atas) ===== */
+    .hero{
+      background: radial-gradient(1200px 450px at 70% 35%, rgba(255,77,46,.12), transparent 55%),
+                  linear-gradient(180deg, var(--panel), #0a0a0d);
+      color: var(--text);
+      padding: 22px 22px 0;
+    }
+
+    .hero-inner{
+      max-width: var(--max);
+      margin: 0 auto;
+      border-radius: var(--radius);
+      overflow:hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.06);
+      position: relative;
+    }
+
+    /* Navbar */
+    .nav{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 18px 22px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-family: Nunito, Poppins, sans-serif;
+      font-weight:800;
+      letter-spacing:.2px;
+    }
+    .brand .dot{
+      width:10px;height:10px;border-radius:50%;
+      background: var(--accent);
+      box-shadow: 0 0 0 4px rgba(255,77,46,.12);
+    }
+    .brand span{ color: #ffb2a6; }
+    .brand b{ color:#fff; }
+
+    .navlinks{
+      display:flex;
+      align-items:center;
+      gap:22px;
+      font-size: 13px;
+      color: rgba(255,255,255,.72);
+    }
+    .navlinks a{
+      color: inherit;
+      text-decoration:none;
+      position:relative;
+      padding:6px 0;
+    }
+    .navlinks a.active{ color: var(--accent2); font-weight:600; }
+    .navlinks a:hover{ color:#fff; }
+
+    .navicons{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .icon-btn{
+      width:36px;height:36px;border-radius:999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.04);
+      display:grid;place-items:center;
+      cursor:pointer;
+    }
+    .icon-btn:hover{ background: rgba(255,255,255,.08); }
+
+    .badge{
+      position:absolute;
+      margin-left: 18px;
+      margin-top: -8px;
+      width: 9px;height:9px;border-radius:50%;
+      background: var(--accent);
+      box-shadow:0 0 0 3px rgba(255,77,46,.18);
+    }
+
+    /* Hero content */
+    .hero-content{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      padding: 18px 22px 26px;
+      align-items:center;
+      min-height: 420px;
+    }
+
+    .hero h1{
+      font-family: Nunito, Poppins, sans-serif;
+      font-size: 54px;
+      line-height: 1.02;
+      margin: 0 0 14px;
+      letter-spacing:.2px;
+    }
+
+    .hero p{
+      max-width: 520px;
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height:1.65;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 11px 18px;
+      border-radius: 12px;
+      border: 0;
+      cursor:pointer;
+      font-weight:600;
+      font-size: 13px;
+    }
+    .btn-primary{
+      background: var(--accent);
+      color:#fff;
+      box-shadow: 0 12px 28px rgba(255,77,46,.25);
+    }
+    .btn-primary:hover{ filter: brightness(1.03); }
+
+    .hero-visual{
+      position: relative;
+      height: 380px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    /* Placeholder gambar hero (ganti ke assets/hero-cup.png) */
+    .hero-visual img{
+      width: min(420px, 100%);
+      height: auto;
+      transform: rotate(0deg);
+      filter: drop-shadow(0 28px 30px rgba(0,0,0,.45));
+      user-select:none;
+      pointer-events:none;
+    }
+
+    /* ===== SECTION: Best Offer ===== */
+    .section{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 40px 22px;
+    }
+
+    .title-row{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom: 18px;
+    }
+    .section h2{
+      margin:0;
+      font-family: Nunito, Poppins, sans-serif;
+      font-weight:800;
+      letter-spacing:.2px;
+      font-size: 34px;
+    }
+    .section .sub{
+      margin:8px 0 0;
+      color: rgba(0,0,0,.52);
+      font-size: 12px;
+    }
+
+    .arrows{
+      display:flex;
+      gap:10px;
+      align-items:center;
+    }
+    .arrow{
+      width:34px;height:34px;border-radius:999px;
+      border:1px solid rgba(0,0,0,.12);
+      background:#fff;
+      display:grid;place-items:center;
+      cursor:pointer;
+    }
+    .arrow.is-accent{
+      border-color: rgba(255,77,46,.35);
+      background: rgba(255,77,46,.08);
+    }
+
+    .products{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-top: 14px;
+    }
+
+    .p-card{
+      background: var(--card);
+      border-radius: 18px;
+      padding: 65px;
+      border: 1px solid rgba(255, 249, 249, 0.08);
+      box-shadow: 0 16px 30px rgba(0,0,0,.06);
+    }
+
+    .p-img{
+      width:100%;
+      height: 160px;
+      border-radius: 16px;
+      background: #f4f4f4;
+      overflow:hidden;
+      display:grid;
+      place-items:center;
+    }
+    .p-img img{
+      width: 95%;
+      height: 95%;
+      object-fit: contain;
+    }
+
+    .p-meta{
+      margin-top: 14px;
+    }
+    .price{
+      font-weight:700;
+      font-size: 13px;
+      margin-bottom: 6px;
+    }
+    .p-name{
+      font-weight:700;
+      margin:0 0 6px;
+    }
+    .p-desc{
+      margin:0 0 14px;
+      font-size: 12px;
+      color: rgba(0,0,0,.5);
+      line-height:1.55;
+    }
+
+    .p-actions{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+
+    .qty{
+      display:flex;
+      align-items:center;
+      border:1px solid rgba(0,0,0,.12);
+      border-radius: 10px;
+      overflow:hidden;
+      height: 36px;
+      background:#fff;
+    }
+    .qty button{
+      width:34px;height:36px;
+      border:0;
+      background:#fff;
+      cursor:pointer;
+      font-weight:700;
+    }
+    .qty input{
+      width:42px;
+      text-align:center;
+      border:0;
+      outline:none;
+      font-weight:700;
+      font-size: 13px;
+    }
+
+    .btn-delivery{
+      background: rgba(255,77,46,.1);
+      color: var(--accent);
+      border:1px solid rgba(255,77,46,.22);
+      height: 36px;
+      padding: 0 14px;
+      border-radius: 10px;
+      font-weight:700;
+      font-size: 12px;
+      cursor:pointer;
+      white-space:nowrap;
+    }
+    .btn-delivery:hover{ background: rgba(255,77,46,.14); }
+
+    /* ===== Gallery ===== */
+   .gallery-head {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 kolom */
+  gap: 20px;
+  width: 90%;
+  margin: auto;
+}
+
+.g-item {
+  width: 100%;
+  height: 220px; /* gambar melebar seperti contoh */
+  overflow: hidden;
+  border-radius: 6px;
+}
+
+.g-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: 0.3s;
+}
+
+.g-item img:hover {
+  transform: scale(1.05);
+}
+
+/* RESPONSIVE BREAKPOINT */
+@media (max-width: 992px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr); /* tablet */
+  }
+
+  .g-item {
+    height: 200px;
+  }
+}
+
+@media (max-width: 600px) {
+  .grid {
+    grid-template-columns: 1fr; /* mobile */
+  }
+
+  .g-item {
+    height: 230px;
+  }
+}
+
+.load-more {
+  text-align: center;
+  margin-top: 35px;
+}
+
+.load-more button {
+  padding: 10px 25px;
+  font-size: 15px;
+  cursor: pointer;
+  border: none;
+  background: #8b5b34;
+  color: #fff;
+  border-radius: 5px;
+  transition: .3s;
+}
+
+.load-more button:hover {
+  background: #6a4226;
+}
+
+    /* ===== Contact banner (beans bg) ===== */
+.contact {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  background: #363535;
+}
+
+/* background image coffee beans kiri + kanan */
+.contact-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url("c:\\Users\\Web Developer\\Downloads\\biji kopi.jpg");
+  background-size: cover;
+  background-position: center;
+  opacity: .35;
+  filter: blur(2px);
+}
+
+/* isi di tengah */
+.contact-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  color: #fff;
+  max-width: 600px;
+}
+
+/* tulisan Follow US */
+.contact .tiny {
+  font-size: 18px;
+  color: #ff4d4d;
+  margin-bottom: 10px;
+}
+
+/* judul */
+.contact h3 {
+  font-size: 34px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+/* deskripsi */
+.contact p {
+  font-size: 18px;
+  margin-bottom: 25px;
+}
+
+/* nomor hp + email */
+.contact .info div {
+  font-size: 18px;
+  margin: 6px 0;
+}
+
+/* social icon */
+.social {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  margin-top: 25px;
+}
+
+.social a {
+  width: 40px;
+  height: 40px;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 17px;
+  text-decoration: none;
+  color: #fff;
+  transition: .3s;
+}
+
+.social a:hover {
+  background: #fff;
+  color: #000;
+}
+.contact {
+  position: relative;
+  background: #0f0b09;
+  color: #fff;
+  padding: 130px 0;
+  text-align: center;
+  overflow: hidden;
+}
+
+.contact-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: .35;
+  z-index: 1;
+}
+
+.contact-content {
+  position: relative;
+  z-index: 2;
+}
+
+
+/* responsif */
+@media (max-width: 500px) {
+  .contact h3 { font-size: 26px; }
+  .contact p { font-size: 18px; }
+  .social a { width: 40px; height: 40px; }
+}
+
+    /* ===== Update News ===== */
+    .news{
+      padding-top: 30px;
+    }
+    .news h3{
+      text-align:center;
+      font-family: Nunito, Poppins, sans-serif;
+      font-weight:900;
+      margin:0 0 6px;
+      font-size: 30px;
+    }
+    .news p.lead{
+      text-align:center;
+      margin:0 auto 18px;
+      max-width: 520px;
+      font-size: 12px;
+      color: rgba(0,0,0,.52);
+      line-height:1.6;
+    }
+
+    .news-grid{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .n-card{
+      border: 1px solid rgba(0,0,0,.08);
+      border-radius: 18px;
+      overflow:hidden;
+      background:#fff;
+      box-shadow: 0 16px 30px rgba(0,0,0,.06);
+    }
+    .n-img{
+      height:  200px;
+      background:#eee;
+    }
+    .n-img img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+    .n-body{
+      padding: 14px;
+    }
+    .n-title{
+      font-weight:800;
+      margin: 0 0 6px;
+    }
+    .n-text{
+      margin: 0 0 12px;
+      font-size: 12px;
+      color: rgba(0,0,0,.56);
+      line-height:1.6;
+    }
+    .n-more{
+      display:inline-flex;
+      gap:8px;
+      align-items:center;
+      font-size: 12px;
+      font-weight:800;
+      color: var(--accent);
+      text-decoration:none;
+    }
+
+    /* ===== Footer ===== */
+    .footer{
+      margin-top: 26px;
+      background: #0c0c0f;
+      color: rgba(255,255,255,.8);
+      border-radius: 24px;
+      padding: 28px 18px;
+      overflow:hidden;
+    }
+    .footer .cols{
+      max-width: var(--max);
+      margin: 0 auto;
+      display:grid;
+      grid-template-columns: 1.1fr 1fr 1fr 1fr;
+      gap: 18px;
+      align-items:start;
+    }
+    .footer h4{
+      margin:0 0 10px;
+      color:#fff;
+      font-size: 13px;
+      letter-spacing:.4px;
+    }
+    .footer a{
+      color: rgba(255,255,255,.72);
+      text-decoration:none;
+      display:block;
+      font-size: 12px;
+      padding: 6px 0;
+    }
+    .footer a:hover{ color:#fff; }
+
+    .copyright{
+      text-align:center;
+      padding-top: 16px;
+      color: rgba(255,255,255,.55);
+      font-size: 11px;
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 980px){
+      .hero-content{
+        grid-template-columns: 1fr;
+        text-align:left;
+        min-height: unset;
+        padding-bottom: 18px;
+      }
+      .hero-visual{
+        height: 320px;
+        justify-content:flex-start;
+      }
+      .hero h1{ font-size: 44px; }
+
+      .products{ grid-template-columns: 1fr; }
+      .grid{ grid-template-columns: repeat(2, 1fr); }
+      .news-grid{ grid-template-columns: 1fr; }
+      .footer .cols{ grid-template-columns: 1fr 1fr; }
+      .navlinks{ display:none; } /* navbar menu disembunyikan seperti umumnya mobile */
+    }
+
+    @media (max-width: 520px){
+      .hero{ padding: 14px 14px 0; }
+      .hero-inner{ border-radius: 22px; }
+      .hero h1{ font-size: 36px; }
+      .section{ padding: 32px 14px; }
+      .grid{ grid-template-columns: 1fr; }
+      .footer{ border-radius: 18px; }
+      .footer .cols{ grid-template-columns: 1fr; }
+      .title-row{ align-items:flex-start; }
+    }
+
+    /* Simple inline SVG icons */
+    .svg{ width:18px;height:18px; display:block; fill:none; stroke:#fff; stroke-width:2; }
+    .svg.dark{ stroke:#111; }
+  </style>
+</head>
+
+<body>
+  <div class="shell">
+    <div class="frame">
+
+      <!-- HERO -->
+      <header class="hero">
+        <div class="hero-inner">
+
+          <div class="nav">
+            <div class="brand">
+              <span class="dot"></span>
+              <span>☕</span>
+              <b>Coffee</b>
+            </div>
+
+            <nav class="navlinks" aria-label="Primary">
+              <a class="active" href="#home">Home</a>
+              <a href="#about">About Us</a>
+              <a href="#menu">Menu</a>
+              <a href="#review">Review</a>
+              <a href="#contact">Contact</a>
+            </nav>
+
+            <div class="navicons">
+              <button class="icon-btn" aria-label="Search">
+                <svg class="svg" viewBox="0 0 24 24">
+                  <circle cx="11" cy="11" r="7"></circle>
+                  <path d="M20 20l-3.2-3.2"></path>
+                </svg>
+              </button>
+              <button class="icon-btn" aria-label="Cart" style="position:relative;">
+                <span class="badge" aria-hidden="true"></span>
+                <svg class="svg" viewBox="0 0 24 24">
+                  <path d="M6 7h15l-1.5 9h-12z"></path>
+                  <path d="M6 7l-1-3H2"></path>
+                  <circle cx="9" cy="20" r="1.6"></circle>
+                  <circle cx="18" cy="20" r="1.6"></circle>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-content" id="home">
+            <div>
+              <h1>Keep your dreams<br/>aroused with a cup<br/>of coffee.</h1>
+              <p>
+                The coffee ideas shared by these generators are not cool at all,
+                as they are not a human being.
+              </p>
+              <button class="btn btn-primary">Buy Now</button>
+            </div>
+
+            <div class="hero-visual" aria-hidden="true">
+              <!-- GANTI FILE INI: assets/hero-cup.png -->
+              <img src="./image/kopi.png" alt="Coffee splash" />
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- BEST OFFER -->
+      <section class="section" id="menu">
+        <div class="title-row">
+          <div>
+            <h2>That is Our Best Offer</h2>
+            <p class="sub">A coffee shop will help you to tell the audience what your business.</p>
+          </div>
+          <div class="arrows" aria-hidden="true">
+            <button class="arrow" title="Prev">
+              <svg class="svg dark" viewBox="0 0 24 24">
+                <path d="M15 6l-6 6 6 6"></path>
+              </svg>
+            </button>
+            <button class="arrow is-accent" title="Next">
+              <svg class="svg dark" viewBox="0 0 24 24">
+                <path d="M9 6l6 6-6 6"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="products">
+          <!-- Product 1 -->
+          <article class="p-card">
+            <div class="p-img">
+              <img src="./image/brazill 1.png" alt="Brazilian coffee beans">
+            </div>
+            <div class="p-meta">
+              <div class="price"> Rp200.000</div>
+              <p class="p-name">Brazilian coffe beans</p>
+              <p class="p-desc">Coffee that’s always you handle your own the way you like.</p>
+              <div class="p-actions">
+                <div class="qty" data-qty>
+                  <button type="button" data-minus>-</button>
+                  <input type="text" value="3" inputmode="numeric" aria-label="Quantity">
+                  <button type="button" data-plus>+</button>
+                </div>
+                <button class="btn-delivery" type="button">Get Delivery</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 2 -->
+          <article class="p-card">
+            <div class="p-img">
+              <img src="./image/VIETNAM.png" alt="Vietnam coffee beans">
+            </div>
+            <div class="p-meta">
+              <div class="price"> Rp177.800</div>
+              <p class="p-name">Vietnam coffe beans</p>
+              <p class="p-desc">Coffee that’s always you handle your own the way you like.</p>
+              <div class="p-actions">
+                <div class="qty" data-qty>
+                  <button type="button" data-minus>-</button>
+                  <input type="text" value="2" inputmode="numeric" aria-label="Quantity">
+                  <button type="button" data-plus>+</button>
+                </div>
+                <button class="btn-delivery" type="button">Get Delivery</button>
+              </div>
+            </div>
+          </article>
+
+          <!-- Product 3 -->
+          <article class="p-card">
+            <div class="p-img">
+              <img src="./image/INDOESIA KOPI.png" alt="Indonesian coffee beans">
+            </div>
+            <div class="p-meta">
+              <div class="price">Rp180.000 </div>
+              <p class="p-name">Indonesian coffe beans</p>
+              <p class="p-desc">Coffee that’s always you handle your own the way you like.</p>
+              <div class="p-actions">
+                <div class="qty" data-qty>
+                  <button type="button" data-minus>-</button>
+                  <input type="text" value="1" inputmode="numeric" aria-label="Quantity">
+                  <button type="button" data-plus>+</button>
+                </div>
+                <button class="btn-delivery" type="button">Get Delivery</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <!-- Gallery -->
+<div class="gallery-head" id="about">
+  <h3>Our Gallery</h3>
+  <p>
+    The coffee shop name generator is a great tool for those that are
+    deliberating what to call their new coffee.
+  </p>
+</div>
+
+<div class="grid" aria-label="Gallery grid">
+  <div class="g-item"><img src="./image/kopi 1.jpg" alt="Gallery 1"></div>
+  <div class="g-item"><img src="./image/kopi 2.jpg" alt="Gallery 2"></div>
+  <div class="g-item"><img src="./image/kopi 3.jpg" alt="Gallery 3"></div>
+  <div class="g-item"><img src="./image/kopi 4.png" alt="Gallery 4"></div>
+  <div class="g-item"><img src="./image/kopi 5.png" alt="Gallery 5"></div>
+  <div class="g-item"><img src="./image/kopi 6.jpg" alt="Gallery 6"></div>
+</div>
+
+<div class="load-more">
+  <button type="button">LOAD MORE</button>
+</div>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+
+  <!-- Background gambar -->
+  <img class="contact-bg" src="./image/biji kopi.jpg" alt="coffee beans">
+
+  <div class="contact-content">
+    <div class="tiny">Follow US</div>
+
+    <h3>Have an inquiry?</h3>
+    <p>Text or call and ask Something.</p>
+
+    <div class="info">
+      <div>📞 +8801742-527137</div>
+      <div>✉️ mdrmaksudur17@gmail.com</div>
+    </div>
+
+</section>
+
+
+        <!-- News -->
+        <div class="news" id="review">
+          <h3>Update News</h3>
+          <p class="lead">
+            A cup of brewed coffee represents a contribution of up to 1.8 grams of
+            fiber of the recommended.
+          </p>
+
+          <div class="news-grid">
+            <article class="n-card">
+              <div class="n-img"><img src="./image/coffe beans.png" alt="News 1"></div>
+              <div class="n-body">
+                <p class="n-title">Coffee beans</p>
+                <p class="n-text">These advertising notices are targeted to the 50% of coffee drinking consumers.</p>
+                <a class="n-more" href="#">Learn More <span aria-hidden="true">→</span></a>
+              </div>
+            </article>
+
+            <article class="n-card">
+              <div class="n-img"><img src="./image/caffe arabika.png" alt="News 2"></div>
+              <div class="n-body">a
+                <p class="n-title">Coffee Arabika</p>
+                <p class="n-text">These advertising notices are targeted to the 50% of coffee drinking consumers.</p>
+                <a class="n-more" href="#">Learn More <span aria-hidden="true">→</span></a>
+              </div>
+            </article>
+
+            <article class="n-card">
+              <div class="n-img"><img src="./image/Americano.png" alt="News 3"></div>
+              <div class="n-body">
+                <p class="n-title">Coffee Americano</p>
+                <p class="n-text">These advertising notices are targeted to the 50% of coffee drinking consumers.</p>
+                <a class="n-more" href="#">Learn More <span aria-hidden="true">→</span></a>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+          <div class="cols">
+            <div>
+              <div class="brand" style="margin-bottom:10px;">
+                <span class="dot"></span><span>☕</span><b>Coffee</b>
+              </div>
+              <div style="font-size:12px; color:rgba(255,255,255,.68); line-height:1.7;">
+                Creating a catchy tagline and coffee shop business growth.
+              </div>
+              <div style="margin-top:10px; font-size:12px;">
+                📞 +8801742-527137
+              </div>
+            </div>
+
+            <div>
+              <h4>CATEGORIES</h4>
+              <a href="#">Ashley Seekers Art</a>
+              <a href="#">Merchandise</a>
+              <a href="#">Gift Certificates</a>
+            </div>
+
+            <div>
+              <h4>INFORMATION</h4>
+              <a href="#">Coffee Beans</a>
+              <a href="#">Contact Us</a>
+              <a href="#">Blog</a>
+            </div>
+
+            <div>
+              <h4>FOLLOW US</h4>
+              <a href="#">Facebook</a>
+              <a href="#">Instagram</a>
+              <a href="#">Twitter</a>
+              <a href="#">LinkedIn</a>
+            </div>
+          </div>
+
+          <div class="copyright">
+            Copyright © 2024 Coffee. All rights reserved.
+          </div>
+        </footer>
+
+      </section>
+    </div>
+  </div>
+
+<script>
+document.addEventListener("click", function (e) {
+  const minusBtn = e.target.closest("[data-minus]");
+  const plusBtn  = e.target.closest("[data-plus]");
+
+  if (!minusBtn && !plusBtn) return;
+
+  const qty = e.target.closest("[data-qty]");
+  if (!qty) return;
+
+  const input = qty.querySelector("input");
+  if (!input) return;
+
+  const clamp = (v) => Math.max(1, Math.min(99, v));
+
+  let value = parseInt(input.value.replace(/\D/g, ""), 10);
+  value = isNaN(value) ? 1 : value;
+
+  if (minusBtn) value--;
+  if (plusBtn) value++;
+
+  input.value = clamp(value);
+});
+
+document.addEventListener("input", function (e) {
+  if (!e.target.closest("[data-qty]")) return;
+
+  let v = parseInt(e.target.value.replace(/\D/g, ""), 10);
+  e.target.value = isNaN(v) ? 1 : Math.max(1, Math.min(99, v));
+});
+</script>
+
+</body>
+</html>
